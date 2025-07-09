@@ -1,8 +1,11 @@
 import express from 'express';
 import { query, validationResult, body, matchedData, checkSchema } from 'express-validator';
 import {createUserValiSchema, getUserValiSchema} from './utils/validationSchemas.mjs';
+import userRouter from "./routes/users.mjs"
+
 
 const app = express();
+app.use(userRouter)
 app.use(express.json());
 
 const loginMiddleware = (req, res, next) => {
