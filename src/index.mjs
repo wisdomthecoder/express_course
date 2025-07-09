@@ -97,13 +97,12 @@ app.patch('/api/users/:id', (req, res) => {
 
 });
 app.delete('/api/users/:id', (req, res) => {
-    const { body, params: { id } } = req;
+    const {params: { id } } = req;
     const parseId = parseInt(id);
     if (isNaN(parseId)) return res.sendStatus(400);
     const findUserIndex = mockUsers.findIndex((user) => user.id == parseId);
     if (findUserIndex == -1) return res.sendStatus(404);
-
-    mockUsers[findUserIndex] = { ...mockUsers[findUserIndex], ...body };
+    mockUsers.splice(findUserIndex)
     return res.sendStatus(200);
 
 
