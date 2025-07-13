@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import productRouter from "./routes/products.mjs"
 import session from 'express-session';
 import mockUsers from './utils/constants.mjs';
+import passport from 'passport';
+import "./strategies/local-strategy.mjs"
 
 
 
@@ -21,6 +23,8 @@ app.use(session({
         maxAge: 60_000 * 60
     }
 }))
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(userRouter);
 app.use(productRouter);
 
@@ -45,8 +49,8 @@ app.listen(PORT, () => {
 
 
 
-app.post('/api/auth', (req, res) => {
-    const { body: { username, password } } = req;
+app.post('/api/auth',passport.authenticate("local"),  (req, res) => {
+  /*   const { body: { username, password } } = req;
     const findUser = mockUsers.find((user) => user.username == username);
     if (!findUser) return res.status(401).send("Bad credentials");
 
@@ -54,7 +58,7 @@ app.post('/api/auth', (req, res) => {
     if (!findUser || findUser.password !== password) return res.status(401).send("Bad credentials");
 
     req.session.user = findUser;
-    return res.status(200).send(findUser);
+    return res.status(200).send(findUser); */
 
 
 
