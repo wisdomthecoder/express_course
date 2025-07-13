@@ -58,7 +58,8 @@ app.post('/api/auth',passport.authenticate("local"),  (req, res) => {
     if (!findUser || findUser.password !== password) return res.status(401).send("Bad credentials");
 
     req.session.user = findUser;
-    return res.status(200).send(findUser); */
+    */
+    return res.status(200).send("User"); 
 
 
 
