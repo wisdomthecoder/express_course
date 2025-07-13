@@ -31,6 +31,17 @@ router.get("/api/users",
     checkSchema(
         getUserValiSchema
     ), (req, res) => {
+
+        console.log(req.session);
+        console.log(req.session.id);
+        req.sessionStore.get(req.session.ig, (err, data) => {
+            if (err) {
+                console.log(err);
+                throw err;
+            } else {
+                console.log(data);
+            }
+        })
         const result = validationResult(req);
         console.log(result);
 
